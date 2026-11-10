@@ -94,3 +94,16 @@ PARAM_SPACES = {
         "clf__max_features": ["sqrt", 0.5],
     },
 }
+
+MODELS_DIR = BASE_DIR / "models"
+
+COL_PREDICTIONS = "predicciones"
+COL_METRICS = "metricas"
+COL_PARAMS = "parametros"
+
+DUMMY_STRATEGY = "stratified"
+TEMPORAL_CUTOFF = 2013        # train <= 2013, test >= 2014
+
+COL_LEAKAGE = "leakage"
+
+FIGURES_DIR = BASE_DIR / "reports" / "figures"

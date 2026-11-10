@@ -35,7 +35,11 @@ def split_data(X, y):
     return X_tr, X_te, y_tr, y_te
 
 
-def build_preprocessor() -> ColumnTransformer:
+def build_preprocessor(numeric_features=None, categorical_features=None) -> ColumnTransformer:
+    # build_preprocessor acepta listas de columnas opcionales.
+    numeric_features = numeric_features or NUMERIC_FEATURES
+    categorical_features = categorical_features or CATEGORICAL_FEATURES
+ 
     numeric = Pipeline([
         ("imputer", SimpleImputer(strategy="median", add_indicator=True)),
         ("scaler", StandardScaler()),
@@ -44,7 +48,8 @@ def build_preprocessor() -> ColumnTransformer:
         ("imputer", SimpleImputer(strategy="constant", fill_value="SIN_DATO")),
         ("onehot", OneHotEncoder(handle_unknown="ignore", min_frequency=20)),
     ])
+    
     return ColumnTransformer([
-        ("num", numeric, NUMERIC_FEATURES),
-        ("cat", categorical, CATEGORICAL_FEATURES),
+        ("num", numeric, numeric_features),
+        ("cat", categorical, categorical_features),
     ])
